@@ -1,22 +1,18 @@
 package finn.creates.pumpkin;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
+import org.bukkit.command.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public abstract class CommandManager implements CommandExecutor, TabCompleter {
-    abstract String commandName();
-    abstract String permissionNode();
     abstract ChatColor primaryColor();
     abstract ChatColor secondaryColor();
     abstract ActivityCommandName alwaysActive();
 
-    PumpkinPlugin plugin = null;
+    public PumpkinPlugin plugin = null;
+    public PluginCommand command = null;
 
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         return true;
@@ -27,13 +23,13 @@ public abstract class CommandManager implements CommandExecutor, TabCompleter {
         if (args.length == 1) {
             arguments.add("help");
             arguments.add("about");
-            if (sender.hasPermission(permissionNode())) arguments.add("admin");
+            if (sender.hasPermission(command.getPermission())) arguments.add("admin");
         }
         return arguments;
     }
 
-    public String toString() {
-        return commandName().toLowerCase(Locale.ROOT);
+    public final String toString() {
+        return command.getName().toLowerCase(Locale.ROOT);
     }
 }
 

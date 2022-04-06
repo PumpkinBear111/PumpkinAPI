@@ -5,40 +5,54 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class PumpkinPlugin extends JavaPlugin {
+    public CommandManager commandManagerInstance;
+
     // Plugin Open/Close
     @Override
-    public void onEnable() {
-        try {
-            CommandManager commandInstance = commandManager();
-            commandInstance.plugin = this;
-            PluginCommand cmd = getServer().getPluginCommand(commandInstance.toString());
-            assert cmd != null;
-            cmd.setExecutor(commandInstance);
-            cmd.setTabCompleter(commandInstance);
-        } catch (Exception e) {
-            LogErr("An issue occurred while registering the commands.");
-        }
+    public final void onEnable() {
+        if (commandManager() != null) {
+            try {
+                commandManagerInstance = commandManager();
+                commandManagerInstance.plugin = this;
+                commandManagerInstance.command = getServer().getPluginCommand(commandName());
+                PluginCommand cmd = getServer().getPluginCommand(commandManagerInstance.toString());
+                assert cmd != null;
+                cmd.setExecutor(commandManagerInstance);
+                cmd.setTabCompleter(commandManagerInstance);
+                Log("Command registered.");
+            } catch (Exception e) {
+                LogErr("An issue occurred while registering the command.");
+            }
+        } else Log("Good news! No Command needed to be registered :)");
         onAwake();
     }
 
     @Override
-    public void onDisable() {
+    public final void onDisable() {
         onClose();
+        if (commandManager() != null) {
+            try {
+                getServer().getPluginCommand(commandName()).setExecutor(null);
+                getServer().getPluginCommand(commandName()).setTabCompleter(null);
+                Log("Command un-registered.");
+            } catch (Exception e) {
+                LogErr("An issue occurred while un-registering the command.");
+            }
+        } else Log("Good news! No Command needed to be un-registered :)");
     }
 
     // User Configuration
     public abstract String loggingDisplayName();
     public abstract CommandManager commandManager();
+    public abstract String commandName();
     public abstract void onAwake();
     public abstract void onClose();
 
     // Built-in Utilities
-    public void Log(String log) {System.out.println("[" + loggingDisplayName() + "]: " + log);}
-    public void LogErr(String err) {System.err.println("[" + loggingDisplayName() + "]: " + err);}
-    public void Version() {}
-    public PluginDescriptionFile GetPluginYML() {return this.getDescription();}
-    public String GetDisplayName() {return this.getDescription().getName();}
-    public String GetPluginDescription() {return this.getDescription().getDescription();}
-    public String GetVersion() {return this.getDescription().getVersion();}
-    public String GetCommand() {return this.getDescription().getCommands().keySet().toArray(new String[0])[0];}
+    public final void Log(String log) {System.out.println("[" + loggingDisplayName() + "]: " + log);}
+    public final void LogErr(String err) {System.err.println("[" + loggingDisplayName() + "]: " + err);}
+    public final PluginDescriptionFile GetPluginYML() {return this.getDescription();}
+    public final String GetDisplayName() {return this.getDescription().getName();}
+    public final String GetPluginDescription() {return this.getDescription().getDescription();}
+    public final String GetVersion() {return this.getDescription().getVersion();}
 }
