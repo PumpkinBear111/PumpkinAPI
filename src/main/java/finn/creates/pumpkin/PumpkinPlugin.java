@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class PumpkinPlugin extends JavaPlugin {
     public CommandManager commandManagerInstance;
+    public boolean active = false;
 
     // Plugin Open/Close
     @Override
