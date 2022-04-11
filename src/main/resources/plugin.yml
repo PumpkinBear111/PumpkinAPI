@@ -5,3 +5,7 @@ version: '${version}'
 main: finn.creates.pumpkin.Pumpkin
 api-version: 1.18
 load: STARTUP
+commands:
+  pumpkin:
+    description: PumpkinAPI is a simple plugin to simplify development of spigot plugins.
+    aliases: pumpkinapi
