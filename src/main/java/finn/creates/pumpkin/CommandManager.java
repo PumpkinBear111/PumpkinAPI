@@ -9,19 +9,29 @@ import java.util.Locale;
 
 /**
  * This is used to easily manage the commands.
- * @since 1.0
- * @version 1.0
  * @author Finn
  */
 public abstract class CommandManager implements CommandExecutor, TabCompleter {
-    abstract String adminPermissions();
-    abstract ChatColor primaryColor();
-    abstract ActivityCommandName alwaysActive();
+    /**
+     * @return the name of the permission node for admin commands to be visible.
+     */ abstract String adminPermissions();
+    /**
+     * @return the color for headings and subheadings in commands
+     */ abstract ChatColor primaryColor();
+    /**
+     * @return the type of command for enabling or disabling stuff
+     */ abstract ActivityCommandName alwaysActive();
 
-    public PumpkinPlugin plugin = null;
-    public PluginCommand command = null;
+    /**
+     * The main PumpkinPlugin instance
+     */ public PumpkinPlugin plugin = null;
+    /**
+     * An instance of the command for reference
+     */ public PluginCommand command = null;
 
-    @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    /**
+     * On command sent
+     */ @Override public final boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
             UnavailableArgument(sender);
         } else {
@@ -40,7 +50,9 @@ public abstract class CommandManager implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    @Override public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+    /**
+     * On command argument autocomplete
+     */ @Override public final List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> arguments = new ArrayList<>();
         if (args.length == 1) {
             arguments.add("help");
@@ -58,7 +70,9 @@ public abstract class CommandManager implements CommandExecutor, TabCompleter {
         return arguments;
     }
 
-    @Override public final String toString() {
+    /**
+     * @return the name of the command
+     */ @Override public final String toString() {
         return command.getName().toLowerCase(Locale.ROOT);
     }
 
@@ -66,11 +80,9 @@ public abstract class CommandManager implements CommandExecutor, TabCompleter {
         sender.sendMessage(ChatColor.GOLD + "[" + primaryColor() + plugin.getName() + ChatColor.GOLD + "]: " + ChatColor.WHITE + "Please select an argument!");
         sender.sendMessage(ChatColor.GOLD + "Do" + ChatColor.RED + "/" + command.getName() + " help " + ChatColor.GOLD + "for a list of commands.");
     }
-
     private void Help(CommandSender sender) {
         throw new NotImplementedException();
     }
-
     private void About(CommandSender sender) {
         throw new NotImplementedException();
     }
@@ -78,8 +90,6 @@ public abstract class CommandManager implements CommandExecutor, TabCompleter {
 
 /**
  * This can be NONE, SET_ACTIVE, CHALLENGE, or ENABLE_DISABLE. Used to set the form that the enable/disable command will show as.
- * @since 1.0
- * @version 1.0
  * @author Finn
  */
 enum ActivityCommandName {
