@@ -60,7 +60,6 @@ public abstract class PumpkinPlugin extends JavaPlugin {
     /** @return prefix name of the plugin when logging. */ public abstract String loggingDisplayName();
     /** @return returns an instance of a command manager. */ public abstract CommandManager commandManager();
     /** @return returns the name of your plugin's command. */ public abstract String commandName();
-    /** @return returns the permission for admin subcommands. */ public abstract String adminPermission();
 
     // Built-in Utilities
     /**

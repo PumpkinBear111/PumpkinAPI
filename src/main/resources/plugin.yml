@@ -2,7 +2,7 @@ name: Pumpkin
 description: A simple plugin to simplify the development of spigot plugins.
 author: Finn
 version: '${version}'
-main: org.bukkit.plugin.java.JavaPlugin
+main: finn.creates.pumpkin.Pumpkin
 api-version: 1.18
 load: STARTUP
 commands:
