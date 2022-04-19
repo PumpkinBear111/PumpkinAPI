@@ -43,10 +43,11 @@ public abstract class CommandManager implements CommandExecutor, TabCompleter {
                         if (args.length >= 2) {
                             switch (args[1]) {
                                 case "help": AdminHelp(sender);
-                                case "set_active": ChangeActivity(sender, ActiveCommandName.SET_ACTIVE);
+                                case "set_inactive": ChangeActivity(sender, ActiveCommandName.SET_ACTIVE, false);
+                                case "set_active": ChangeActivity(sender, ActiveCommandName.SET_ACTIVE, true);
                                 //case "challenge": ChangeActivity(sender, ActiveCommandName.CHALLENGE);
-                                case "enable": ChangeActivity(sender, ActiveCommandName.ENABLE_DISABLE);
-                                case "disable": ChangeActivity(sender, ActiveCommandName.ENABLE_DISABLE);
+                                case "disable": ChangeActivity(sender, ActiveCommandName.ENABLE_DISABLE, false);
+                                case "enable": ChangeActivity(sender, ActiveCommandName.ENABLE_DISABLE, true);
                                 default: AdminHelp(sender);
                             }
                         } else UnavailableAdminArgument(sender);
@@ -113,8 +114,13 @@ public abstract class CommandManager implements CommandExecutor, TabCompleter {
     private void About(CommandSender sender) {
         throw new NotImplementedException();
     }
-    private void ChangeActivity(CommandSender sender, ActiveCommandName type) {
-        throw new NotImplementedException();
+    private void ChangeActivity(CommandSender sender, ActiveCommandName type, boolean to) {
+        if (plugin.active == to) {
+            if (to) {
+                sender.sendMessage();
+                return;
+            }
+        }
     }
 }
 

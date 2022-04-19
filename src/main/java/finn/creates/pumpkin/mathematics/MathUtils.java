@@ -60,7 +60,8 @@ public class MathUtils {
      * @param max the maximum value of the random number
      * @return description
      */ public static double Random(double min, double max) {
-        return 0;
+        if(min == max) return min;
+        return min + (double) Math.round(Math.random() * (max - min));
     }
     /**
      * Get a random number between two values
@@ -68,7 +69,8 @@ public class MathUtils {
      * @param max the maximum value of the random number
      * @return description
      */ public static float Random(float min, float max) {
-        return 0;
+        if(min == max) return min;
+        return min + (float) Math.round(Math.random() * (max - min));
     }
     /**
      * Get a random number between two values
@@ -76,7 +78,8 @@ public class MathUtils {
      * @param max the maximum value of the random number
      * @return description
      */ public static long Random(long min, long max) {
-        return 0;
+        if(min == max) return min;
+        return min + (long) Math.round(Math.random() * (max - min));
     }
 
     /**
