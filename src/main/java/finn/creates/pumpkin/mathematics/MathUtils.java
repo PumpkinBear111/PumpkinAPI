@@ -1,7 +1,5 @@
 package finn.creates.pumpkin.mathematics;
 
-import finn.creates.pumpkin.annotations.Placeholder;
-
 /**
  * Useful tools for math.
  * @author Finn

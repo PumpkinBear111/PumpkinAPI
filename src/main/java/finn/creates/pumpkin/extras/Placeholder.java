@@ -1,4 +1,4 @@
-package finn.creates.pumpkin.annotations;
+package finn.creates.pumpkin.extras;
 
 /**
  * For all the placeholder classes and methods.

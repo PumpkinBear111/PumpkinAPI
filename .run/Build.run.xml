@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Build" type="CompoundRunConfigurationType">
+    <toRun name="PumpkinAPI [jar]" type="GradleRunConfiguration" />
+    <toRun name="PumpkinAPI [javadoc]" type="GradleRunConfiguration" />
+    <method v="2" />
+  </configuration>
+</component>

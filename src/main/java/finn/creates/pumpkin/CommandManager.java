@@ -1,6 +1,5 @@
 package finn.creates.pumpkin;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import java.util.ArrayList;
@@ -94,13 +93,13 @@ public abstract class CommandManager implements CommandExecutor, TabCompleter {
         sender.sendMessage(ChatColor.GOLD + "Do" + ChatColor.RED + "/" + command.getName() + " admin help " + ChatColor.GOLD + "for a list of commands.");
     }
     private void Help(CommandSender sender) {
-        sender.sendMessage(primaryColor() + "-----" + plugin.GetDisplayName() + " Command Help-----");
+        sender.sendMessage(primaryColor() + "-----" + plugin.getDisplayName() + " Command Help-----");
         sender.sendMessage(primaryColor() + "/" + command.getName() + " help" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Get a list of commands.");
         sender.sendMessage(primaryColor() + "/" + command.getName() + " about" + ChatColor.GRAY + " - " + ChatColor.WHITE + "For plugin information");
-        if (sender.hasPermission(adminPermission())) sender.sendMessage(ChatColor.RED + "/" + command.getName() + " admin" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Manage " + plugin.GetDisplayName() + ".");
+        if (sender.hasPermission(adminPermission())) sender.sendMessage(ChatColor.RED + "/" + command.getName() + " admin" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Manage " + plugin.getDisplayName() + ".");
     }
     private void AdminHelp(CommandSender sender) {
-        sender.sendMessage(primaryColor() + "-----" + plugin.GetDisplayName() + ChatColor.RED + " Admin" + primaryColor() + " Help-----");
+        sender.sendMessage(primaryColor() + "-----" + plugin.getDisplayName() + ChatColor.RED + " Admin" + primaryColor() + " Help-----");
         sender.sendMessage(primaryColor() + "/" + command.getName() + " admin help" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Get a list of admin commands.");
         if (setActiveCommand() == ActiveCommandName.SET_ACTIVE && plugin.active)
             sender.sendMessage(primaryColor() + "/" + command.getName() + " admin set_inactive" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Disable the plugin.");
@@ -112,14 +111,17 @@ public abstract class CommandManager implements CommandExecutor, TabCompleter {
             sender.sendMessage(primaryColor() + "/" + command.getName() + " admin enable" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Enable the plugin.");
     }
     private void About(CommandSender sender) {
-        throw new NotImplementedException();
+        sender.sendMessage(primaryColor() + "-----" + plugin.getDisplayName() + "-----");
+        sender.sendMessage(ChatColor.WHITE + plugin.getPluginDescription());
+        sender.sendMessage(primaryColor() + "Type " + ChatColor.GOLD + "/" + command.getName().toLowerCase(Locale.ROOT) + " help" + primaryColor() + " for help.");
     }
     private void ChangeActivity(CommandSender sender, ActiveCommandName type, boolean to) {
         if (plugin.active == to) {
-            if (to) {
-                sender.sendMessage();
-                return;
-            }
+            if (to) sender.sendMessage(ChatColor.GOLD + "This hasn't been changed.");
+        } else {
+            plugin.active = to;
+            if (to) sender.sendMessage(ChatColor.GREEN + "Enabled!");
+            if (to) sender.sendMessage(ChatColor.RED + "Disabled.");
         }
     }
 }
