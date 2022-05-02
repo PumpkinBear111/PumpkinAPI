@@ -12,7 +12,7 @@ public class MathUtils {
      * @param min The minimum value
      * @param max The maximum value
      * @return The clamped value
-     */ public static int Clamp(int num, int min, int max) {
+     */ public static int clamp(int num, int min, int max) {
         return Math.max(Math.min(num, max), min);
     }
     /**
@@ -21,7 +21,7 @@ public class MathUtils {
      * @param min The minimum value
      * @param max The maximum value
      * @return The clamped value
-     */ public static double Clamp(double num, double min, double max) {
+     */ public static double clamp(double num, double min, double max) {
         return Math.max(Math.min(num, max), min);
     }
     /**
@@ -30,7 +30,7 @@ public class MathUtils {
      * @param min The minimum value
      * @param max The maximum value
      * @return The clamped value
-     */ public static float Clamp(float num, float min, float max) {
+     */ public static float clamp(float num, float min, float max) {
         return Math.max(Math.min(num, max), min);
     }
     /**
@@ -39,7 +39,7 @@ public class MathUtils {
      * @param min The minimum value
      * @param max The maximum value
      * @return The clamped value
-     */ public static long Clamp(long num, long min, long max) {
+     */ public static long clamp(long num, long min, long max) {
         return Math.max(Math.min(num, max), min);
     }
 
@@ -48,8 +48,13 @@ public class MathUtils {
      * @param min the minimum value in the random number
      * @param max the maximum value of the random number
      * @return description
-     */ public static int Random(int min, int max) {
+     */ public static int random(int min, int max) {
         if(min == max) return min;
+        if(max < min) {
+            int temp = min;
+            min = max;
+            max = temp;
+        }
         return min + (int) Math.round(Math.random() * (max - min));
     }
     /**
@@ -57,8 +62,13 @@ public class MathUtils {
      * @param min the minimum value in the random number
      * @param max the maximum value of the random number
      * @return description
-     */ public static double Random(double min, double max) {
+     */ public static double random(double min, double max) {
         if(min == max) return min;
+        if(max < min) {
+            double temp = min;
+            min = max;
+            max = temp;
+        }
         return min + (double) Math.round(Math.random() * (max - min));
     }
     /**
@@ -66,8 +76,13 @@ public class MathUtils {
      * @param min the minimum value in the random number
      * @param max the maximum value of the random number
      * @return description
-     */ public static float Random(float min, float max) {
+     */ public static float random(float min, float max) {
         if(min == max) return min;
+        if(max < min) {
+            float temp = min;
+            min = max;
+            max = temp;
+        }
         return min + (float) Math.round(Math.random() * (max - min));
     }
     /**
@@ -75,8 +90,13 @@ public class MathUtils {
      * @param min the minimum value in the random number
      * @param max the maximum value of the random number
      * @return description
-     */ public static long Random(long min, long max) {
+     */ public static long random(long min, long max) {
         if(min == max) return min;
+        if(max < min) {
+            long temp = min;
+            min = max;
+            max = temp;
+        }
         return min + (long) Math.round(Math.random() * (max - min));
     }
 
@@ -84,7 +104,7 @@ public class MathUtils {
      * Returns a multiplier for negative or positive based on the number
      * @param num The number
      * @return 1 if positive, -1 if negative
-     */ public static int PosNeg(int num) {
+     */ public static int posNeg(int num) {
          if (num >= 0) return 1;
          return -1;
     }
@@ -92,7 +112,7 @@ public class MathUtils {
      * Returns a multiplier for negative or positive based on the number
      * @param num The number
      * @return 1 if positive, -1 if negative
-     */ public static int PosNeg(double num) {
+     */ public static int posNeg(double num) {
         if (num >= 0) return 1;
         return -1;
     }
@@ -100,7 +120,7 @@ public class MathUtils {
      * Returns a multiplier for negative or positive based on the number
      * @param num The number
      * @return 1 if positive, -1 if negative
-     */ public static int PosNeg(float num) {
+     */ public static int posNeg(float num) {
         if (num >= 0) return 1;
         return -1;
     }
@@ -108,7 +128,7 @@ public class MathUtils {
      * Returns a multiplier for negative or positive based on the number
      * @param num The number
      * @return 1 if positive, -1 if negative
-     */ public static int PosNeg(long num) {
+     */ public static int posNeg(long num) {
         if (num >= 0) return 1;
         return -1;
     }

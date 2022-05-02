@@ -13,13 +13,13 @@ import java.util.Locale;
 public abstract class CommandManager implements CommandExecutor, TabCompleter {
     /**
      * @return the name of the permission node for admin commands to be visible.
-     */ abstract String adminPermission();
+     */ public abstract String adminPermission();
     /**
      * @return the color for headings and subheadings in commands
-     */ abstract ChatColor primaryColor();
+     */ public abstract ChatColor primaryColor();
     /**
      * @return the type of command for enabling or disabling stuff
-     */ abstract ActiveCommandName setActiveCommand();
+     */ public abstract ActiveCommandName setActiveCommand();
 
     /**
      * The main PumpkinPlugin instance
@@ -34,25 +34,26 @@ public abstract class CommandManager implements CommandExecutor, TabCompleter {
         if (args.length == 0) {
             UnavailableArgument(sender);
         } else {
+            sender.sendMessage(args[0]);
             switch (args[0].toLowerCase(Locale.ROOT)) {
-                case "help": Help(sender);
-                case "about": About(sender);
-                case "admin": {
+                case "help" -> Help(sender);
+                case "about" -> About(sender);
+                case "admin" -> {
                     if (sender.hasPermission(adminPermission())) {
                         if (args.length >= 2) {
                             switch (args[1]) {
-                                case "help": AdminHelp(sender);
-                                case "set_inactive": ChangeActivity(sender, ActiveCommandName.SET_ACTIVE, false);
-                                case "set_active": ChangeActivity(sender, ActiveCommandName.SET_ACTIVE, true);
-                                //case "challenge": ChangeActivity(sender, ActiveCommandName.CHALLENGE);
-                                case "disable": ChangeActivity(sender, ActiveCommandName.ENABLE_DISABLE, false);
-                                case "enable": ChangeActivity(sender, ActiveCommandName.ENABLE_DISABLE, true);
-                                default: AdminHelp(sender);
+                                case "help" -> AdminHelp(sender);
+                                case "set_inactive" -> ChangeActivity(sender, ActiveCommandName.SET_ACTIVE, false);
+                                case "set_active" -> ChangeActivity(sender, ActiveCommandName.SET_ACTIVE, true);
+                                    //case "challenge": ChangeActivity(sender, ActiveCommandName.CHALLENGE);
+                                case "disable" -> ChangeActivity(sender, ActiveCommandName.ENABLE_DISABLE, false);
+                                case "enable" -> ChangeActivity(sender, ActiveCommandName.ENABLE_DISABLE, true);
+                                default -> AdminHelp(sender);
                             }
                         } else UnavailableAdminArgument(sender);
                     } else UnavailableArgument(sender);
                 }
-                default: UnavailableArgument(sender);
+                default -> UnavailableArgument(sender);
             }
         }
         return true;
@@ -124,15 +125,4 @@ public abstract class CommandManager implements CommandExecutor, TabCompleter {
             if (to) sender.sendMessage(ChatColor.RED + "Disabled.");
         }
     }
-}
-
-/**
- * This can be NONE, SET_ACTIVE, CHALLENGE, or ENABLE_DISABLE. Used to set the form that the enable/disable command will show as.
- * @author Finn
- */
-enum ActiveCommandName {
-    NONE,
-    SET_ACTIVE,
-    //CHALLENGE,
-    ENABLE_DISABLE,
 }

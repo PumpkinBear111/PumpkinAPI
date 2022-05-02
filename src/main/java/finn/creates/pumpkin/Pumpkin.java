@@ -18,18 +18,15 @@ public final class Pumpkin extends PumpkinPlugin {
 
     @Override public CommandManager commandManager() {
         return new CommandManager() {
-            @Override
-            String adminPermission() {
+            @Override public String adminPermission() {
                 return "finn.creates.pumpkin.admin";
             }
 
-            @Override
-            ChatColor primaryColor() {
+            @Override public ChatColor primaryColor() {
                 return ChatColor.GOLD;
             }
 
-            @Override
-            ActiveCommandName setActiveCommand() {
+            @Override public ActiveCommandName setActiveCommand() {
                 return ActiveCommandName.NONE;
             }
         };
