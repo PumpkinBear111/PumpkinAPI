@@ -3,7 +3,3 @@
 * @param param_name param_description
 * @return description
 */
-/**
-*
-* @param param_name param_description
-*/

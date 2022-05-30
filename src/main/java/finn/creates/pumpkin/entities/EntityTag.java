@@ -1,6 +1,7 @@
 package finn.creates.pumpkin.entities;
 
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.*;
 import java.util.ArrayList;
 
@@ -63,4 +64,16 @@ public abstract class EntityTag {
      * When an event happens on an entity.
      * @param event The Event
      */ public void teleportEvent(EntityTeleportEvent event) {}
+
+
+    /**
+     * Kills all entities. This will also call onRemoved() for each.
+     * This will not cause any entity drops, and will just cause the entity to disappear.
+    */ public final void killAll() {
+        for (Entity entity : (ArrayList<Entity>) entities.clone()) {
+            onRemoved(entity);
+            entities.remove(entity);
+            entity.remove();
+        }
+    }
 }

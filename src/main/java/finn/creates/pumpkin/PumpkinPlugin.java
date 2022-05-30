@@ -1,14 +1,9 @@
 package finn.creates.pumpkin;
 
-import finn.creates.pumpkin.entities.EntityTag;
 import finn.creates.pumpkin.entities.EntityTagManager;
-import finn.creates.pumpkin.extras.NotEnabledException;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.entity.Entity;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.Locale;
 
 /**
  * Used instead of org.bukkit.plugin.java.JavaPlugin for an easier setup process for spigot plugin development.
@@ -20,7 +15,7 @@ public abstract class PumpkinPlugin extends JavaPlugin {
      */ public CommandManager commandManagerInstance;
     /**
      * The instance of the entity tag manager.
-     */ private final EntityTagManager entityTagManager = new EntityTagManager(requiresEntityTags());
+     */ private final EntityTagManager entityTagManager = new EntityTagManager();
     /**
      * Shows if the plugin is active or not
      */ public boolean active = false;
@@ -44,11 +39,9 @@ public abstract class PumpkinPlugin extends JavaPlugin {
                 logErr("An issue occurred while registering the command.");
             }
         } else log("Good news! No Command needed to be registered :)");
-        if (requiresEntityTags()) {
-            getServer().getPluginManager().registerEvents(entityTagManager, this);
-            entityTagManager.runTaskTimer(this, 0, 1);
-            log("Enabled Entity Tagging");
-        }
+        getServer().getPluginManager().registerEvents(entityTagManager, this);
+        entityTagManager.runTaskTimer(this, 0, 1);
+        log("EntityTagManager Enabled");
         onAwake();
         log("Initialization Complete!");
     }
@@ -66,6 +59,8 @@ public abstract class PumpkinPlugin extends JavaPlugin {
                 logErr("An issue occurred while un-registering the command.");
             }
         } else log("Good news! No Command needed to be un-registered :)");
+        entityTagManager.cancel();
+        log("EntityTagManager Stopped");
     }
 
     // User Configuration
@@ -75,7 +70,6 @@ public abstract class PumpkinPlugin extends JavaPlugin {
     /** @return prefix name of the plugin when logging. */ public abstract String loggingDisplayName();
     /** @return returns an instance of a command manager. */ public abstract CommandManager commandManager();
     /** @return returns the name of your plugin's command. */ public abstract String commandName();
-    /** @return returns the name of your plugin's command. */ public abstract boolean requiresEntityTags();
 
     // Built-in Utilities
     /**
@@ -106,56 +100,8 @@ public abstract class PumpkinPlugin extends JavaPlugin {
      * Get the plugin's version
      * @return the plugin's version
      */ public final String getVersion() {return this.getDescription().getVersion();}
-
-    // Entity Tagging
     /**
-     * Register an entity tag.
-     * @param tag Instance of the entity tag. It is suggested that you store this instance somewhere else as well for access.
-     */ public void registerEntityTag(EntityTag tag) {
-        if (!entityTagManager.enabled) throw new NotEnabledException("Entity Tags are not Enabled.");
-        entityTagManager.tags.add(tag);
-    }
-    /**
-     * Un-register an entity tag.
-     * @param tag The tag to remove.
-     */ public void removeEntityTag(EntityTag tag) {
-        if (!entityTagManager.enabled) throw new NotEnabledException("Entity Tags are not Enabled.");
-        entityTagManager.tags.remove(tag);
-    }
-    /**
-     * Get an array of all the entity tags.
-     * @return an array of all entity tags.
-     */ public EntityTag[] getEntityTags() {
-        if (!entityTagManager.enabled) throw new NotEnabledException("Entity Tags are not Enabled.");
-        return entityTagManager.tags.toArray(new EntityTag[0]);
-    }
-    /**
-     * Get an entity tag based on it's name.
-     * @param name The name of the tag you want to get.
-     * @return the entity tag with the given name.
-     */ public EntityTag getEntityTag(String name) {
-        if (!entityTagManager.enabled) throw new NotEnabledException("Entity Tags are not Enabled.");
-        for (EntityTag tag : entityTagManager.tags) {
-            if (tag.name().toLowerCase(Locale.ROOT).equals(name.toLowerCase(Locale.ROOT))) return tag;
-        }
-        return null;
-    }
-    /**
-     * Give an EntityTag to an entity.
-     * @param entity The entity that you want tagged.
-     * @param tag The instance of the tag that you want the entity added to.
-     */ public void addTag(Entity entity, EntityTag tag) {
-        if (!entityTagManager.enabled) throw new NotEnabledException("Entity Tags are not Enabled.");
-        tag.entities.add(entity);
-        tag.onAdded(entity);
-    }
-    /**
-     * Remove an EntityTag from an entity.
-     * @param entity The entity that you want un-tagged.
-     * @param tag The instance of the tag that you want the entity removed from.
-     */ public void removeTag(Entity entity, EntityTag tag) {
-        if (!entityTagManager.enabled) throw new NotEnabledException("Entity Tags are not Enabled.");
-        tag.entities.remove(entity);
-        tag.onRemoved(entity);
-    }
+     * Get the plugin's entity tag manager.
+     * @return the plugin's entity tag manager.
+     */ public final EntityTagManager getEntityTagManager() {return this.entityTagManager;}
 }

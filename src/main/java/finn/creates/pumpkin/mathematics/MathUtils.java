@@ -133,4 +133,49 @@ public class MathUtils {
         return -1;
     }
 
+    /**
+     * Loops the value. Ex. if it is larger than the max it becomes the minimum.
+     * @param num The number to be looped
+     * @param min The minimum
+     * @param max The maximum
+     * @return The final value
+     */ public static int loop(int num, int min, int max) {
+        if (num >= max) return min;
+        if (num <= min) return max;
+        return num;
+    }
+    /**
+     * Loops the value. Ex. if it is larger than the max it becomes the minimum.
+     * @param num The number to be looped
+     * @param min The minimum
+     * @param max The maximum
+     * @return The final value
+     */ public static double loop(double num, double min, double max) {
+        if (num >= max) return min;
+        if (num <= min) return max;
+        return num;
+    }
+    /**
+     * Loops the value. Ex. if it is larger than the max it becomes the minimum.
+     * @param num The number to be looped
+     * @param min The minimum
+     * @param max The maximum
+     * @return The final value
+     */ public static float loop(float num, float min, float max) {
+        if (num >= max) return min;
+        if (num <= min) return max;
+        return num;
+    }
+    /**
+     * Loops the value. Ex. if it is larger than the max it becomes the minimum.
+     * @param num The number to be looped
+     * @param min The minimum
+     * @param max The maximum
+     * @return The final value
+     */ public static long loop(long num, long min, long max) {
+        if (num >= max) return min;
+        if (num <= min) return max;
+        return num;
+    }
+
 }
