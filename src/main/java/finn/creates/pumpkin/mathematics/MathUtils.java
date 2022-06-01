@@ -178,4 +178,100 @@ public class MathUtils {
         return num;
     }
 
+    /**
+     * Gets the biggest of the numbers provided
+     * @param nums An array of numbers
+     * @return The largest of the provided numbers
+     */ public static int biggest(int... nums) {
+         int num = nums[0];
+         for (int number : nums) {
+             num = Math.max(number, num);
+         }
+         return num;
+    }
+    /**
+     * Gets the biggest of the numbers provided
+     * @param nums An array of numbers
+     * @return The largest of the provided numbers
+     */ public static double biggest(double... nums) {
+        double num = nums[0];
+        for (double number : nums) {
+            num = Math.max(number, num);
+        }
+        return num;
+    }
+    /**
+     * Gets the biggest of the numbers provided
+     * @param nums An array of numbers
+     * @return The largest of the provided numbers
+     */ public static float biggest(float... nums) {
+        float num = nums[0];
+        for (float number : nums) {
+            num = Math.max(number, num);
+        }
+        return num;
+    }
+    /**
+     * Gets the biggest of the numbers provided
+     * @param nums An array of numbers
+     * @return The largest of the provided numbers
+     */ public static long biggest(long... nums) {
+        long num = nums[0];
+        for (long number : nums) {
+            num = Math.max(number, num);
+        }
+        return num;
+    }
+
+    /**
+     * Gets the smallest of the numbers provided
+     * @param nums An array of numbers
+     * @return The largest of the provided numbers
+     */ public static int smallest(int... nums) {
+        int num = nums[0];
+        for (int number : nums) {
+            num = Math.min(number, num);
+        }
+        return num;
+    }
+    /**
+     * Gets the smallest of the numbers provided
+     * @param nums An array of numbers
+     * @return The largest of the provided numbers
+     */ public static double smallest(double... nums) {
+        double num = nums[0];
+        for (double number : nums) {
+            num = Math.min(number, num);
+        }
+        return num;
+    }
+    /**
+     * Gets the smallest of the numbers provided
+     * @param nums An array of numbers
+     * @return The largest of the provided numbers
+     */ public static float smallest(float... nums) {
+        float num = nums[0];
+        for (float number : nums) {
+            num = Math.min(number, num);
+        }
+        return num;
+    }
+    /**
+     * Gets the smallest of the numbers provided
+     * @param nums An array of numbers
+     * @return The largest of the provided numbers
+     */ public static long smallest(long... nums) {
+        long num = nums[0];
+        for (long number : nums) {
+            num = Math.min(number, num);
+        }
+        return num;
+    }
+
+    /*
+     public static double roundTo(double num, int precision) {
+
+    }
+    */
+
 }
